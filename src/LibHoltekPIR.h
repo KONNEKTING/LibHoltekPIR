@@ -62,10 +62,24 @@ class LibHoltekPIR {
 
   public:
     LibHoltekPIR(void);
-    void doSomething();
+    void init(TwoWire &wire = Wire);
+    int8_t readTemperature(void);
+    uint16_t readRawPirData();
+    uint16_t readRawBrightness();
+    uint16_t readRawTemperature();
+    uint16_t readManufactorID(void);
+    uint16_t readFirmwareVersion(void);
+    void setLvdVoltage(byte value);
+    void setLvden(bool value);
+    void setPiren(bool value);
+    void setTrigerMode(bool value);
+    void setActen(byte value);
+    void setGainControl(uint8_t value);
 
   private:
-    void init();  
+    TwoWire *_i2c;
+    uint16_t readRawValue(byte registerPointer);
+    void writeRawValue(byte registerPointer, uint16_t value);
 };
 
 extern LibHoltekPIR HoltekPIR;
